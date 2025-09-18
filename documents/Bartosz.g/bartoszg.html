@@ -2,60 +2,33 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Legitymacja Bartosz G.</title>
-
-<!-- iOS fullscreen -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Legitymacja">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Legitymacja</title>
 <style>
 html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background: #000;
-    overflow: hidden;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #000;
 }
 
-#card {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.8s;
-}
-
-#card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    backface-visibility: hidden;
-}
-
-#card img.back {
-    transform: rotateY(180deg);
-}
-
-#card.flipped {
-    transform: rotateY(180deg);
+#legit {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 </style>
 </head>
 <body>
-<div id="card">
-    <img src="przod.png" class="front" alt="Przód">
-    <img src="tyl.png" class="back" alt="Tył">
-</div>
+<img id="legit" src="przod.png" alt="Legitymacja">
 
 <script>
-const card = document.getElementById('card');
-card.addEventListener('click', () => {
-    card.classList.toggle('flipped');
+const img = document.getElementById("legit");
+let flipped = false;
+
+img.addEventListener("click", () => {
+  flipped = !flipped;
+  img.src = flipped ? "tyl.png" : "przod.png";
 });
 </script>
 </body>
