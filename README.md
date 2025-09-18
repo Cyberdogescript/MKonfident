@@ -1,1 +1,5 @@
 # MKonfident
+
+Witam Na Stronie MKONFIDENT 
+__MKONFIDENT_
+ALL RIGHTS RESERVED 2025
