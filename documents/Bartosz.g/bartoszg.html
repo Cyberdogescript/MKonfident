@@ -36,10 +36,12 @@
       width: 100%;
       flex: 1;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       perspective: 2000px;
       position: relative;
+      gap: 12px;
     }
     .card {
       width: 90vw;
@@ -63,33 +65,14 @@
     .card img.back {
       transform: rotateY(180deg);
     }
-    /* Zielony połysk */
-    .shine {
-      position: absolute;
-      top: 0;
-      left: -150%;
-      width: 200%;
-      height: 100%;
-      background: linear-gradient(
-        120deg,
-        rgba(0, 255, 0, 0.0) 30%,
-        rgba(0, 255, 0, 0.3) 50%,
-        rgba(0, 255, 0, 0.0) 70%
-      );
-      transform: skewX(-25deg);
-      animation: shineMove 3s infinite;
-      pointer-events: none;
-    }
-    @keyframes shineMove {
-      0%   { left: -150%; }
-      100% { left: 150%; }
-    }
     .rank {
-      margin-top: 15px;
       font-size: 1.2em;
       font-weight: bold;
       color: #0f0;
       text-shadow: 0 0 5px #0f0;
+      text-align: center;
+      line-height: 1.4em;
+      white-space: pre-line;
     }
   </style>
 </head>
@@ -103,11 +86,10 @@
       <div class="card" id="card">
         <img src="przod.png" alt="Przód">
         <img src="tyl.png" alt="Tył" class="back">
-        <div class="shine"></div>
       </div>
-    </div>
 
-    <div class="rank">Starszy sprzedawczyk</div>
+      <div class="rank">Stopień:\nStarszy Sprzedawczyk</div>
+    </div>
   </div>
 
   <script>
