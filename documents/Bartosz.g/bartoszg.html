@@ -1,339 +1,61 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>Legitymacja Bartosz G.</title>
-
-<!-- iOS standalone -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-<style>
-  :root{
-    --card-w: 90vw;
-    --card-h: 78vh;
-    --hue: 0deg;            /* sterowane JS-em */
-    --grad-angle: 45deg;    /* sterowane JS-em */
-    --gloss-opacity: 0.35;
-  }
-
-  html,body{
-    height:100%;
-    margin:0;
-    background:#040404;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
-    overflow:hidden;
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    color:#fff;
-  }
-
-  /* wrapper - centrowanie */
-  .wrapper{
-    height:100%;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:flex-start;
-    padding-top:12px;
-    gap:10px;
-  }
-
-  /* LOGA */
-  .logos{
-    display:flex;
-    gap:16px;
-    align-items:center;
-    justify-content:center;
-    pointer-events:none;
-    z-index:30;
-  }
-  .logos img{
-    height:46px;
-    width:auto;
-    opacity:0.95;
-    -webkit-filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
-            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
-  }
-
-  /* Kontener karty (perspektywa dla 3D) */
-  .stage{
-    width:100%;
-    flex:1;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    perspective:2200px;
-    touch-action: none;
-    padding-bottom:12px;
-  }
-
-  /* karta (legitymacja) */
-  .card {
-    width:var(--card-w);
-    height:var(--card-h);
-    max-width:540px;
-    max-height:860px;
-    border-radius:14px;
-    position:relative;
-    transform-style: preserve-3d;
-    transition: transform 700ms cubic-bezier(.2,.9,.2,1);
-    box-shadow:
-      0 18px 40px rgba(0,0,0,0.65),
-      inset 0 1px 0 rgba(255,255,255,0.02);
-    cursor: pointer;
-    overflow: visible;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-  }
-
-  .card.flipped{
-    transform: rotateY(180deg);
-  }
-
-  /* zdjęcia przód/tył */
-  .card img.face{
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    border-radius:14px;
-    display:block;
-    -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-    transform-origin:center center;
-    transition: transform 220ms ease;
-  }
-  .card img.back{
-    transform: rotateY(180deg);
-  }
-
-  /* REALISTYCZNY EFEKT: irydyzująca warstwa
-     - gradient, blend, filter: hue-rotate controlled by JS/działania urządzenia
-  */
-  .iridescence {
-    position:absolute;
-    inset:0;
-    border-radius:14px;
-    pointer-events:none;
-    mix-blend-mode: screen;
-    opacity: var(--gloss-opacity);
-    background:
-      linear-gradient(var(--grad-angle), 
-        rgba(255,255,255,0.00) 0%,
-        rgba(120,255,120,0.06) 10%,
-        rgba(0,255,130,0.18) 30%,
-        rgba(30,100,255,0.12) 60%,
-        rgba(255,90,140,0.08) 80%,
-        rgba(255,255,255,0.00) 100%);
-    filter: hue-rotate(var(--hue));
-    transition: filter 120ms linear, background 120ms linear;
-  }
-
-  /* dodatkowy subtelny shine (białe odbicie) */
-  .specular {
-    position:absolute;
-    inset:0;
-    border-radius:14px;
-    pointer-events:none;
-    background: linear-gradient(120deg, rgba(255,255,255,0) 0%,
-                                         rgba(255,255,255,0.08) 45%,
-                                         rgba(255,255,255,0.0) 55%);
-    mix-blend-mode: overlay;
-    opacity: 0.6;
-    transform: translateZ(1px) translateX(-30%);
-    transition: transform 120ms linear, opacity 200ms;
-  }
-
-  /* delikatne ramki (jak hologram) */
-  .card::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    border-radius:14px;
-    padding:2px;
-    pointer-events:none;
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
-  }
-
-  /* Fallback message (jak trzeba aktywować czujnik) */
-  .hint {
-    position: absolute;
-    bottom: 14px;
-    left:50%;
-    transform: translateX(-50%);
-    background: rgba(0,0,0,0.45);
-    color: #cfe9c6;
-    padding: 8px 12px;
-    border-radius: 999px;
-    font-size: 13px;
-    backdrop-filter: blur(6px);
-    z-index:40;
-    display:flex;
-    gap:8px;
-    align-items:center;
-  }
-  .hint button{
-    background:linear-gradient(180deg,#1b6b2a,#0e4b18);
-    border:0;
-    color:white;
-    padding:6px 10px;
-    border-radius:8px;
-    font-weight:600;
-    font-size:13px;
-  }
-
-  /* Responsive tweak */
-  @media (max-width:420px){
-    :root{ --card-w: 94vw; --card-h: 82vh; --gloss-opacity:0.38; }
-    .logos img{ height:42px;}
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Legitymacja Bartosz</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden; /* ukrywa paski */
+      background: black;
+    }
+    .container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 2000px; /* efekt 3D */
+    }
+    .card {
+      width: 90vw;
+      height: 90vh;
+      transform-style: preserve-3d;
+      transition: transform 0.8s;
+      cursor: pointer;
+      position: relative;
+    }
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+    .card img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      backface-visibility: hidden;
+    }
+    .card img.back {
+      transform: rotateY(180deg);
+    }
+  </style>
 </head>
 <body>
-
-<div class="wrapper">
-  <div class="logos" aria-hidden="true">
-    <img src="../../MSWiALogo.png" alt="MSWiA logo">
-    <img src="../../KSPWW-APNG.png" alt="KSP logo">
-  </div>
-
-  <div class="stage" id="stage">
+  <div class="container">
     <div class="card" id="card">
-      <img src="przod.png" class="face front" id="front" alt="Przód legitymacji">
-      <img src="tyl.png"  class="face back"  id="back"  alt="Tył legitymacji">
-      <div class="iridescence" id="ir"></div>
-      <div class="specular" id="spec"></div>
+      <img src="PrzódLegitymacji.png" alt="Przód">
+      <img src="TyłLegitymacji.png" alt="Tył" class="back">
     </div>
   </div>
 
-  <div class="hint" id="hint" style="display:none;">
-    <span>Aktywuj czujnik ruchu, żeby hologram reagował na kąt</span>
-    <button id="enableMotion">Włącz</button>
-  </div>
-</div>
-
-<script>
-/*
-  Skrypt:
-  - kliknięcie przełącza przód/tył (flipping)
-  - ruch palcem po karcie (pointermove) zmienia kąt gradientu i barwę
-  - jeśli DeviceOrientation dostępny (i użytkownik da pozwolenie na iOS),
-    to używamy tilt gamma/beta żeby sterować kolorem i kątem (bardziej "realistyczne")
-  - fallback: delikatna automatyczna animacja
-*/
-
-const card = document.getElementById('card');
-const ir = document.getElementById('ir');
-const spec = document.getElementById('spec');
-const stage = document.getElementById('stage');
-const hint = document.getElementById('hint');
-const enableBtn = document.getElementById('enableMotion');
-
-let flipped = false;
-card.addEventListener('click', ()=> {
-  flipped = !flipped;
-  card.classList.toggle('flipped', flipped);
-});
-
-// POINTER MOVE (touch/mouse) -> sterowanie efektem
-let lastX = 0, lastY = 0;
-function updateFromPointer(x, y){
-  // x,y - 0..1 relative to stage center
-  // grad angle: -90..90 degrees
-  const gx = (x - 0.5) * 180; // -90..90
-  const gy = (y - 0.5) * 180; // -90..90
-
-  // hue change - map x to hue -120..120
-  const hue = Math.round((x - 0.5) * 240);
-  // Set CSS variables
-  document.documentElement.style.setProperty('--grad-angle', (40 + gx*0.06) + 'deg');
-  document.documentElement.style.setProperty('--hue', hue + 'deg');
-
-  // subtle specular movement
-  spec.style.transform = `translateZ(1px) translateX(${(x-0.5)*30}%) translateY(${(y-0.5)*8}%)`;
-  spec.style.opacity = 0.6 + Math.abs((x-0.5))*0.4;
-}
-
-stage.addEventListener('pointermove', (ev)=>{
-  ev.preventDefault();
-  const rect = stage.getBoundingClientRect();
-  const rx = (ev.clientX - rect.left) / rect.width;
-  const ry = (ev.clientY - rect.top)  / rect.height;
-  updateFromPointer(rx, ry);
-});
-
-// DEVICE ORIENTATION (mobile gyroscope) - requires permission on iOS
-function handleOrientation(e){
-  // e.beta: -180..180 (front/back tilt)
-  // e.gamma: -90..90 (left/right tilt)
-  const beta = e.beta || 0;
-  const gamma = e.gamma || 0;
-  // normalize to 0..1
-  const nx = (gamma + 90) / 180; // 0..1
-  const ny = (beta + 180) / 360;  // 0..1
-
-  updateFromPointer(nx, ny);
-}
-
-// Enable device motion permission (iOS 13+)
-async function requestMotionPermission(){
-  if (typeof DeviceOrientationEvent !== 'undefined' 
-      && typeof DeviceOrientationEvent.requestPermission === 'function'){
-    try{
-      const res = await DeviceOrientationEvent.requestPermission();
-      if (res === 'granted'){
-        window.addEventListener('deviceorientation', handleOrientation, true);
-        hint.style.display='none';
-      } else {
-        // user denied
-        hint.style.display='none';
-      }
-    }catch(err){
-      hint.style.display='none';
-    }
-  } else {
-    // non-iOS or permission not needed
-    window.addEventListener('deviceorientation', handleOrientation, true);
-    hint.style.display='none';
-  }
-}
-
-// show hint button if iOS-like environment and no permission yet
-function needPermissionUI(){
-  return (typeof DeviceOrientationEvent !== 'undefined' 
-          && typeof DeviceOrientationEvent.requestPermission === 'function');
-}
-
-if (needPermissionUI()){
-  hint.style.display = 'flex';
-  enableBtn.addEventListener('click', requestMotionPermission);
-} else {
-  // attach listener anyway for devices that provide it
-  window.addEventListener('deviceorientation', handleOrientation, true);
-}
-
-// Fallback: jeśli brak ruchu -> lekka automatyczna animacja
-let autoT = 0;
-function autoAnimate(){
-  if (document.hidden) { requestAnimationFrame(autoAnimate); return; }
-  autoT += 0.008;
-  // gentle oscillation across width
-  const x = 0.5 + Math.sin(autoT) * 0.18;
-  const y = 0.5 + Math.cos(autoT*0.6) * 0.06;
-  updateFromPointer(x,y);
-  requestAnimationFrame(autoAnimate);
-}
-autoAnimate();
-
-// Accessibility: if images fail to load, ensure click still toggles
-document.getElementById('front').addEventListener('error', ()=>{ console.warn('front image missing'); });
-document.getElementById('back').addEventListener('error', ()=>{ console.warn('back image missing'); });
-
-</script>
+  <script>
+    const card = document.getElementById("card");
+    card.addEventListener("click", () => {
+      card.classList.toggle("flipped");
+    });
+  </script>
 </body>
 </html>
