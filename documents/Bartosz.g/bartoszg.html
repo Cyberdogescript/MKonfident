@@ -9,20 +9,41 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden; /* ukrywa paski */
+      overflow: hidden;
       background: black;
+      font-family: Arial, sans-serif;
+      color: white;
     }
-    .container {
+    .wrapper {
       width: 100%;
       height: 100%;
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .logos {
+      display: flex;
       justify-content: center;
       align-items: center;
-      perspective: 2000px; /* efekt 3D */
+      margin-bottom: 10px;
+    }
+    .logos img {
+      height: 60px;
+      object-fit: contain;
+    }
+    .container {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 2000px;
+      position: relative;
     }
     .card {
       width: 90vw;
-      height: 90vh;
+      height: 80vh;
       transform-style: preserve-3d;
       transition: transform 0.8s;
       cursor: pointer;
@@ -37,18 +58,56 @@
       height: 100%;
       object-fit: contain;
       backface-visibility: hidden;
+      border-radius: 10px;
     }
     .card img.back {
       transform: rotateY(180deg);
     }
+    /* Zielony połysk */
+    .shine {
+      position: absolute;
+      top: 0;
+      left: -150%;
+      width: 200%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        rgba(0, 255, 0, 0.0) 30%,
+        rgba(0, 255, 0, 0.3) 50%,
+        rgba(0, 255, 0, 0.0) 70%
+      );
+      transform: skewX(-25deg);
+      animation: shineMove 3s infinite;
+      pointer-events: none;
+    }
+    @keyframes shineMove {
+      0%   { left: -150%; }
+      100% { left: 150%; }
+    }
+    .rank {
+      margin-top: 15px;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #0f0;
+      text-shadow: 0 0 5px #0f0;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="card" id="card">
-      <img src="przod.png" alt="Przód">
-      <img src="tyl.png" alt="Tył" class="back">
+  <div class="wrapper">
+    <div class="logos">
+      <img src="../../KSPWW-APNG.png" alt="Policja">
     </div>
+
+    <div class="container">
+      <div class="card" id="card">
+        <img src="przod.png" alt="Przód">
+        <img src="tyl.png" alt="Tył" class="back">
+        <div class="shine"></div>
+      </div>
+    </div>
+
+    <div class="rank">Starszy sprzedawczyk</div>
   </div>
 
   <script>
